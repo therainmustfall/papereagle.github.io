@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='keywords'  content='guan的博客' />
+    <meta name='description'  content='guan的博客' />
+    <meta name='author' content='guan的博客' />
+    <meta content='email=no' name='format-detection' />
+    <meta content='telephone=no' name='format-detection' />
+    <meta name='viewport' content='width=device-width,initial-scale=1.0' />
+    <link rel='shortcut icon' href='img/favicon.ico' type='/image/x-icon'>
+    <link href='main.css' rel='stylesheet' type='text/css'>
+    <title>guan's site</title>
+</head>
+<body>
+<nav>
+<ul>
+<a href='/index.html'><li>Home</li></a>
+<a href='/about.html'><li>About</li></a>
+<a href='https://github.com/therainmustfall' target = '_blank'><li>GitHub</li></a>
+</ul>
+  <meta name="dcterms.date" content="2020-03-01" />
+  <title>ubuntu pandoc 环境变量配置</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">ubuntu pandoc 环境变量配置</h1>
+<p class="date">2020-03-01</p>
+</header>
+<h3 id="问题描述">问题描述</h3>
+<ul>
+<li>使用whereis命令在ubuntu上发现有三处pandoc所在的PATH目录，第一个是直接安装pandoc时形成的，第二个是rstudio目录里的，第三个是安装Anacoda时形成的，版本不一样，Anaconda更新后发现pandoc未更新的最新，rstudio中的版本应该是用在Rmarkdown导出文件的功能中的，也比较旧。</li>
+<li>在Terminal中使用pandoc命令时，使用<code>pando -v</code>显示的版本（<strong>2.3</strong>)，与cd到pandoc安装目录<code>/path/to/pandoc -v</code>显示的版本(<strong>2.6</strong>)不一样，前者版本较低，使用<code>sudo apt install pandoc</code>命令时显示为系统已安装了最新版本。</li>
+<li>将原版pandoc的bin目录加入<code>/etc/profile</code>中，不管放在Anaconda的path前面还是后面，在任意命令行中执行pandoc依然是Anaconda的版本。</li>
+<li>想到除了<code>/etc/profile</code>之外，还有其他几个环境变量配置文件，可能是这几个文件之间存在先后和覆盖的关系。</li>
+</ul>
+<h3 id="问题搜索">问题搜索</h3>
+<ul>
+<li><p>在CSDN上看到一个<a href="https://blog.csdn.net/smile_from_2015/article/details/80058351">相关的文章</a>，发现确实是不同的配置文件的不同功能和用途，导致了PATH变量被覆盖的情况，为了能在命令行中直接使用单独的pandoc，而不是Anaconda目录下的版本，需要重新在不同文件中修改环境变量，以便能够在不影响现有的PATH目录列表的情况下，使用最新版本的工具。</p></li>
+<li><p>仅以我使用的ubuntu为例，四个配置文件分别为<code>/etc/profile</code>、<code>~/.profile</code>、<code>~/.bashrc</code>、<code>/etc/bash.bashrc</code>，它们的特点如下：</p>
+<ol type="1">
+<li><code>/etc/profile</code>针对系统中的所有用户，登录时加载，修改需要重启，可以用<code>source</code>命令立即生效。</li>
+<li><code>~/.profile</code>针对系统当前用户，当前用户登录系统时加载，修改需要重启，可以用<code>source</code>命令立即生效。</li>
+<li><code>/etc/bash.bashrc</code>为每一个（理解为所有）使用bash shell的用户执行，修改无需重启,重新打开新的bash即可生效。</li>
+<li><code>~/.bashrc</code>为系统当前用户的bash shell执行，当用户登录以及打开shell时文件被读取，修改无需重启，重新打开新的bash即可生效。</li>
+</ol></li>
+</ul>
+<h3 id="问题解决">问题解决</h3>
+<ul>
+<li>从上述说明来看，系统启动和用户登录时应该会首先执行前两个文件，打开Terminal时，会执行后两个文件，所以从PATH变量的角度来看，在Terminal中最先寻找的应该是<code>/etc/bash.bashrc</code>、<code>~/.bashrc</code>，如果没有会继续在前两个文件的PATH中寻找。</li>
+<li>于是将Anaconda的PATH信息依然放在原先<code>/etc/profile</code>文件中，将单独的pandoc的bin目录放在<code>/etc/bashrc.bash</code>文件中，任意打开新的Terminal，输入<code>pandoc -v</code>，显示为<strong>2.6</strong>， 而输入<code>conda --version</code>也正常显示。</li>
+</ul>
+
+</body>
+
+<footer id='footer'>
+		&copy; 2020 a librarian.
+</footer>
+
+</html>
