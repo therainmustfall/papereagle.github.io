@@ -68,7 +68,7 @@ for file in os.listdir("."):
                     os.makedirs(blog_url)
                     
                 blog_url = blog_url.replace(os.sep,"/")
-                cmd = 'pandoc ' + file + " -s -o \"" + blog_url + "/index.html\" --template=default.html5"
+                cmd = 'pandoc ' + file + " -s -o \"" + blog_url + "/index.html\" --template=./default.html"
                 print(cmd)
                 subprocess.call(cmd,shell=True)
                 pos = None
