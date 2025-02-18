@@ -62,6 +62,8 @@ for file in os.listdir("."):
                     new_post = False 
                     break
             if new_post:
+                # replacing spaces with hyphens
+                title = title.replace(" ","-")
                 new_article = {"title":title,"date":date,"content":"".join(post[5:])}
                 old_post = dbs['post']
                 old_post.append(new_article)
