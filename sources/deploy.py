@@ -87,7 +87,7 @@ for file in os.listdir("."):
                 blog_url = blog_url.replace(os.sep,"/")
 
                 # convering md file to html
-                cmd = 'pandoc ' + file + " -s -o \"" + blog_url + "/index.html\" --template=./default.html"
+                cmd = 'pandoc "' + file + '" -s -o \"' + blog_url + "/index.html\" --template=./default.html"
                 print(cmd)
                 subprocess.call(cmd,shell=True)
 
