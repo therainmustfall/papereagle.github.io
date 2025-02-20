@@ -62,8 +62,6 @@ for file in os.listdir("."):
                     new_post = False 
                     break
             if new_post:
-                # replacing spaces with hyphens
-                title = title.replace(" ","-")
                 new_article = {"title":title,"date":date,"content":"".join(post[5:])}
                 old_post = dbs['post']
                 old_post.append(new_article)
@@ -76,9 +74,10 @@ for file in os.listdir("."):
                 year = str(dt.year)
                 month = str("{:0>2d}".format(dt.month))
                 day = str("{:0>2d}".format(dt.day))
-
+                # replacing spaces with hyphens
+                new_title = title.replace(" ","-")
                 # new html file would be put in content/year/month/day/title/ folder
-                blog_url = os.path.join(os.path.pardir,'content',year,month,day,title)
+                blog_url = os.path.join(os.path.pardir,'content',year,month,day,new_title)
                 
                 if not os.path.exists(blog_url):
                     os.makedirs(blog_url)
